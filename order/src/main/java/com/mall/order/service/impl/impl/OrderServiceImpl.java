@@ -144,7 +144,7 @@ public class OrderServiceImpl implements IOrderService {
                     // 商品ID
                     String goodsId = temp.getGoodsId();
                     // 根据商品ID查询商品信息
-                    Goods goods = goodsFeignClient.getStudentById(goodsId);
+                    Goods goods = goodsFeignClient.getGoodsById(goodsId);
                     goods.setPrice(temp.getGoodsPrice());
                     goods.setGoodsNum(temp.getGoodsNum());
                     goodsList.add(goods);

@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "goodsServer")
 public interface GoodsFeignClient {
     @GetMapping(value = "/goods/query/{id}")
-    public Goods getStudentById(@PathVariable("id") String id);
+    public Goods getGoodsById(@PathVariable("id") String id);
 }
