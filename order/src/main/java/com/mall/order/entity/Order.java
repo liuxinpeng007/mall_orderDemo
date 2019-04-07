@@ -13,7 +13,7 @@ public class Order {
 
     private int id;
     private int userId;
-    // create order
+    // create order time
     private Date orderDate;
     // status 0:pending payment, 1:paid, 2:cancel or delete the order
     private String status;
