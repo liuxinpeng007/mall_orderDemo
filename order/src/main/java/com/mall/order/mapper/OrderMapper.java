@@ -4,14 +4,15 @@ import com.mall.order.entity.Order;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface OrderMapper {
 
-    Order getOrderById(String id);
+    Order getOrderById(int id);
 
-    List<Order> getOrderByUserId(String userId);
+    List<Order> getOrderByMap(Map queryMap);
 
-    void addOrder(Order order);
+    int addOrder(Order order);
 
 }

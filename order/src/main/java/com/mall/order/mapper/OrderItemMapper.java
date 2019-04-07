@@ -5,11 +5,10 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-
 @Mapper
 public interface OrderItemMapper {
 
-    List<OrderItem> getOrderByOrderId(String orderId);
+    List<OrderItem> getOrderByOrderId(int orderId);
 
     void addOrderItem(OrderItem item);
 

@@ -1,41 +1,39 @@
 package com.mall.order.entity;
 
 import java.util.Date;
+import java.util.List;
 
 /**
- * Order 订单类
+ * Order
  *
  * @author liuxinpeng
  * @data 2019/04/03
  */
 public class Order {
 
-    // 订单id
-    private String id;
-    // 用户ID
-    private String userId;
-    // 创建订单时间
+    private int id;
+    private int userId;
+    // create order
     private Date orderDate;
-    // 订单状态 0：待付款、1：已付款、2：已付款、3：取消或删除订单
+    // status 0:pending payment, 1:paid, 2:cancel or delete the order
     private String status;
-    // 支付日期
-    //private Date payDate;
-    // 订单金额
+    // order total price
     private float amount;
+    private List<OrderItem> orderItems;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
@@ -63,14 +61,11 @@ public class Order {
         this.amount = amount;
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id='" + id + '\'' +
-                ", userId='" + userId + '\'' +
-                ", orderDate=" + orderDate +
-                ", status='" + status + '\'' +
-                ", amount=" + amount +
-                '}';
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 }

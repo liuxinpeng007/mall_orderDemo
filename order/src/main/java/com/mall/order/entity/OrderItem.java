@@ -1,60 +1,55 @@
 package com.mall.order.entity;
 
 /**
- * Order 订单详细类
+ * Order Item
  *
  * @author liuxinpeng
  * @data 2019/04/03
  */
 public class OrderItem {
-    // id
-    private String id;
-    // 订单ID
-    private String orderId;
-    // 商品ID
-    private String goodsId;
-    // 商品数量
-    private int goodsNum;
-    // 商品价格
-    private float goodsPrice;
+    private int id;
+    private int orderId;
+    private int goodId;
+    private int goodNum;
+    private float goodPrice;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getOrderId() {
+    public int getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
 
-    public String getGoodsId() {
-        return goodsId;
+    public int getGoodId() {
+        return goodId;
     }
 
-    public void setGoodsId(String goodsId) {
-        this.goodsId = goodsId;
+    public void setGoodId(int goodId) {
+        this.goodId = goodId;
     }
 
-    public int getGoodsNum() {
-        return goodsNum;
+    public int getGoodNum() {
+        return goodNum;
     }
 
-    public void setGoodsNum(int goodsNum) {
-        this.goodsNum = goodsNum;
+    public void setGoodNum(int goodNum) {
+        this.goodNum = goodNum;
     }
 
-    public float getGoodsPrice() {
-        return goodsPrice;
+    public float getGoodPrice() {
+        return goodPrice;
     }
 
-    public void setGoodsPrice(float goodsPrice) {
-        this.goodsPrice = goodsPrice;
+    public void setGoodPrice(float goodPrice) {
+        this.goodPrice = goodPrice;
     }
 }

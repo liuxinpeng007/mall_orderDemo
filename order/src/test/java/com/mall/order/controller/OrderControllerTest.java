@@ -16,7 +16,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -42,31 +41,33 @@ public class OrderControllerTest {
     @Test
     public void testGetOrderById() throws Exception {
         RequestBuilder request = null;
-        //路径
-        request = get("/order/query/086eede6c56d4734bb870368108c893d")
-                //接受的数据类型
+        request = get("/order/query/1")
                 .accept(MediaType.APPLICATION_JSON);
         mvc.perform(request)
-                //状态吗是否相等
                 .andExpect(status().isOk())
-                //得到的信息是否与特定字段匹配
                 //.andExpect(content().string("1wqeqweqweqweqweq"))
-                //输出信息
                 .andDo(print());
     }
 
     @Test
     public void getOrderByUserId() throws Exception {
         RequestBuilder request = null;
-        //路径
-        request = get("/order/query/user/edcae26418994a70a67ceb3d9fda6fa7")
-                //接受的数据类型
+        request = get("/order/query/user/1")
                 .accept(MediaType.APPLICATION_JSON);
         mvc.perform(request)
-                //状态吗是否相等
                 .andExpect(status().isOk())
-                //输出信息
                 .andDo(print());
     }
+
+    @Test
+    public void getOrderByUserIdAndStatus() throws Exception {
+        RequestBuilder request = null;
+        request = get("/order/query/user/1/1")
+                .accept(MediaType.APPLICATION_JSON);
+        mvc.perform(request)
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
 
 }

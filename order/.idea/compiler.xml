@@ -7,7 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="mall.eureka" />
-        <module name="mall.goods" />
+        <module name="mall.good" />
         <module name="mall.order" />
       </profile>
     </annotationProcessing>
