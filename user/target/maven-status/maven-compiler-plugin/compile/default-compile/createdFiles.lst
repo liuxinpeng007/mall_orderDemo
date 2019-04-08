@@ -1,0 +1,6 @@
+com\mall\user\entity\User.class
+com\mall\user\mapper\UserMapper.class
+com\mall\user\UserServerApplication.class
+com\mall\user\service\impl\UserServiceImpl.class
+com\mall\user\service\IUserService.class
+com\mall\user\controller\UserController.class

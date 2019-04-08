@@ -41,7 +41,7 @@ public class OrderControllerTest {
     @Test
     public void testGetOrderById() throws Exception {
         RequestBuilder request = null;
-        request = get("/order/query/1")
+        request = get("/order/query/2")
                 .accept(MediaType.APPLICATION_JSON);
         mvc.perform(request)
                 .andExpect(status().isOk())

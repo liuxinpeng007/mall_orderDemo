@@ -13,13 +13,16 @@ public class Order {
 
     private int id;
     private int userId;
-    // create order time
+    // create order
     private Date orderDate;
     // status 0:pending payment, 1:paid, 2:cancel or delete the order
     private String status;
     // order total price
     private float amount;
     private List<OrderItem> orderItems;
+    private String userName;
+    private String userAddress;
+    private String userPhone;
 
     public int getId() {
         return id;
@@ -67,5 +70,29 @@ public class Order {
 
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserAddress() {
+        return userAddress;
+    }
+
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
+    }
+
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
     }
 }

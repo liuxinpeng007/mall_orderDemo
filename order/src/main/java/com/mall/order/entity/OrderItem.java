@@ -9,9 +9,10 @@ package com.mall.order.entity;
 public class OrderItem {
     private int id;
     private int orderId;
-    private int goodId;
-    private int goodNum;
-    private float goodPrice;
+    private int productId;
+    private int productNum;
+    private float productPrice;
+    private String productName;
 
     public int getId() {
         return id;
@@ -29,27 +30,35 @@ public class OrderItem {
         this.orderId = orderId;
     }
 
-    public int getGoodId() {
-        return goodId;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setGoodId(int goodId) {
-        this.goodId = goodId;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
-    public int getGoodNum() {
-        return goodNum;
+    public int getProductNum() {
+        return productNum;
     }
 
-    public void setGoodNum(int goodNum) {
-        this.goodNum = goodNum;
+    public void setProductNum(int productNum) {
+        this.productNum = productNum;
     }
 
-    public float getGoodPrice() {
-        return goodPrice;
+    public float getProductPrice() {
+        return productPrice;
     }
 
-    public void setGoodPrice(float goodPrice) {
-        this.goodPrice = goodPrice;
+    public void setProductPrice(float productPrice) {
+        this.productPrice = productPrice;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 }

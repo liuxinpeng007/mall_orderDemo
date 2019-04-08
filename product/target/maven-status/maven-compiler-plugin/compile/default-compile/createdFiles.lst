@@ -1,0 +1,6 @@
+com\mall\product\service\impl\ProductServiceImpl.class
+com\mall\product\controller\ProductController.class
+com\mall\product\service\IProductService.class
+com\mall\product\ProductServerApplication.class
+com\mall\product\mapper\ProductMapper.class
+com\mall\product\entity\Product.class
