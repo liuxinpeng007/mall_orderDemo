@@ -53,7 +53,7 @@ public class OrderController {
         try {
             Map<String, Object> queryMap = new HashMap<String, Object>();
             queryMap.put("userId", userId);
-            return orderService.queryOrderByMap(queryMap);
+            return orderService.queryOrders(queryMap);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -73,7 +73,7 @@ public class OrderController {
             Map<String, Object> queryMap = new HashMap<String, Object>();
             queryMap.put("userId", userId);
             queryMap.put("status", status);
-            return orderService.queryOrderByMap(queryMap);
+            return orderService.queryOrders(queryMap);
         } catch (Exception e) {
             e.printStackTrace();
             return null;

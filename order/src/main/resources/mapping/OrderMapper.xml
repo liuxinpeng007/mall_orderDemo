@@ -8,16 +8,19 @@
         <result column="orderDate"  property="orderDate" />
         <result column="status"  property="status" />
         <result column="amount"  property="amount" />
+        <result column="userName"  property="userName" />
+        <result column="userPhone"  property="userPhone" />
+        <result column="userAddress"  property="userAddress" />
     </resultMap>
 
     <select id="getOrderById" resultMap="orderResultMap" parameterType="Integer">
-        select id,userId,orderDate,status,amount
+        select id,userId,orderDate,status,amount,userName,userPhone,userAddress
         from t_order
         where id = #{id}
     </select>
 
     <select id="getOrderByMap" resultMap="orderResultMap" parameterType="Map">
-        select id,userId,orderDate,status,amount
+        select id,userId,orderDate,status,amount,userName,userPhone,userAddress
         from t_order
         <trim prefix="where" prefixOverrides="and">
             <if test="_parameter.containsKey('userId')">
@@ -33,8 +36,8 @@
     </select>
 
     <insert id="addOrder" useGeneratedKeys="true" keyProperty="id" parameterType="com.mall.order.entity.Order">
-        insert into t_order (userId,orderDate,status,amount)
-        values (#{userId},#{orderDate},#{status},#{amount})
+        insert into t_order (userId,orderDate,status,amount,userName,userPhone,userAddress)
+        values (#{userId},#{orderDate},#{status},#{amount},#{userName},#{userPhone},#{userAddress})
     </insert>
 
 </mapper>

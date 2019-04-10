@@ -6,6 +6,7 @@ import com.mall.user.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service("userService")
@@ -20,7 +21,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public List<User> getUsersByIds(List<Integer> ids) {
+    public List<User> getUsersByIds(Collection<Integer> ids) {
         return userMapper.getUsersByIds(ids);
     }
 }

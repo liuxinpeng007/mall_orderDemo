@@ -5,6 +5,7 @@ import com.mall.product.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -26,7 +27,7 @@ public class ProductController {
     }
 
     @PostMapping("/product/querys")
-    public List<Product> getProductsByIds(@RequestBody List<Integer> ids) {
+    public List<Product> getProductsByIds(@RequestBody Collection<Integer> ids) {
         return productService.getProductsByIds(ids);
     }
 }

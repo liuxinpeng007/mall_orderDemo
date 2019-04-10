@@ -7,6 +7,7 @@ import com.mall.product.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -32,7 +33,7 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public List<Product> getProductsByIds(List<Integer> ids) {
+    public List<Product> getProductsByIds(Collection<Integer> ids) {
         return productMapper.getProductsByIds(ids);
     }
 }

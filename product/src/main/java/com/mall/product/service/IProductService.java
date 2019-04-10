@@ -3,6 +3,7 @@ package com.mall.product.service;
 
 import com.mall.product.entity.Product;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -20,5 +21,5 @@ public interface IProductService {
      * @param ids product IDs
      * @return product information list
      */
-    List<Product> getProductsByIds(List<Integer> ids);
+    List<Product> getProductsByIds(Collection<Integer> ids);
 }

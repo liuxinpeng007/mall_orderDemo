@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface OrderItemMapper {
 
-    List<OrderItem> getOrderByOrderId(int orderId);
+    List<OrderItem> getOrderItemsByOrderId(int orderId);
 
     void addOrderItem(OrderItem item);
 

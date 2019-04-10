@@ -18,11 +18,11 @@
         where id = #{id}
     </select>
 
-    <select id="getProductsByIds" resultMap="productResultMap" parameterType="java.util.List">
+    <select id="getProductsByIds" resultMap="productResultMap" parameterType="java.util.Collection">
         select id,productName,price,status,createDate,lable,desctail
         from t_product
         where id in
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+        <foreach collection="collection" index="index" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>
     </select>

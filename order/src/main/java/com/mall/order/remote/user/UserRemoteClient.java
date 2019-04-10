@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -19,5 +20,5 @@ public interface UserRemoteClient {
     User getUserById(@PathVariable("id") int id);
 
     @PostMapping("/user/querys")
-    List<User> getUsersByIds(List<Integer> ids);
+    List<User> getUsersByIds(Collection<Integer> ids);
 }

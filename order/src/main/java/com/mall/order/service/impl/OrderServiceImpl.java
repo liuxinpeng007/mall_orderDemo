@@ -11,6 +11,9 @@ import com.mall.product.entity.Product;
 import com.mall.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -48,15 +51,8 @@ public class OrderServiceImpl implements IOrderService {
         // Query order information
         Order order = orderMapper.getOrderById(id);
         if (order != null) {
-            List<OrderItem> orderItems = orderItemMapper.getOrderByOrderId(order.getId());
-            // Fill in the order item information
-            fillOrderItemsInfo(orderItems);
+            List<OrderItem> orderItems = orderItemMapper.getOrderItemsByOrderId(order.getId());
             order.setOrderItems(orderItems);
-            // The user server is called remotely to query the user information
-            User user = userRemoteClient.getUserById(order.getUserId());
-            order.setUserAddress(user.getAddress());
-            order.setUserPhone(user.getPhone());
-            order.setUserName(user.getUserName());
             return order;
         }
         return null;
@@ -64,45 +60,20 @@ public class OrderServiceImpl implements IOrderService {
 
 
     /**
-     * Query the order information by query map
+     * Query the orders information by query map
      *
      * @param queryMap query map
-     * @return order information
+     * @return orders information
      */
     @Override
-    public List<Order> queryOrderByMap(Map queryMap) {
+    public List<Order> queryOrders(Map queryMap) {
         List<Order> orders = orderMapper.getOrderByMap(queryMap);
         if (orders != null && orders.size() > 0) {
-            // get all user id
-            List<Integer> userIds = new ArrayList<Integer>();
-            // all order Item;
-            List<OrderItem> orderItemList = new ArrayList<OrderItem>();
             // Query all order item information
             for (int i = 0, len = orders.size(); i < len; i++) {
                 Order order = orders.get(i);
-                userIds.add(order.getUserId());
-                List<OrderItem> orderItems = orderItemMapper.getOrderByOrderId(order.getId());
-                orderItemList.addAll(orderItems);
+                List<OrderItem> orderItems = orderItemMapper.getOrderItemsByOrderId(order.getId());
                 order.setOrderItems(orderItems);
-            }
-            // Fill in the order item information
-            fillOrderItemsInfo(orderItemList);
-
-            // Set the user information in the order
-            List<User> userList = userRemoteClient.getUsersByIds(userIds);
-            if (userList != null && userList.size() > 0) {
-                for (int i = 0, len = orders.size(); i < len; i++) {
-                    Order order = orders.get(i);
-                    for (int j = 0, uLen = userList.size(); j < uLen; j++) {
-                        User user = userList.get(j);
-                        if (order.getUserId() == user.getId()) {
-                            order.setUserName(user.getUserName());
-                            order.setUserPhone(user.getPhone());
-                            order.setUserAddress(user.getAddress());
-                            break;
-                        }
-                    }
-                }
             }
             return orders;
         }
@@ -112,22 +83,32 @@ public class OrderServiceImpl implements IOrderService {
     /**
      * Create order
      *
-     * @param order order
+     * @param order orderf
      */
     @Override
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public boolean addOrder(Order order) throws Exception {
         if (order != null) {
-            // Set order information
+            // set order information
             order.setOrderDate(new Date());
             order.setStatus("0");
+            // query user information
+            User user = userRemoteClient.getUserById(order.getUserId());
+            order.setUserAddress(user.getAddress());
+            order.setUserPhone(user.getPhone());
+            order.setUserName(user.getUserName());
             orderMapper.addOrder(order);
             try {
                 List<OrderItem> orderItemList = order.getOrderItems();
-                // Input the order item and calculate the total price of the order
-                for (int i = 0, len = orderItemList.size(); i < len; i++) {
-                    OrderItem temp = orderItemList.get(i);
-                    temp.setOrderId(order.getId());
-                    orderItemMapper.addOrderItem(temp);
+                if (orderItemList != null) {
+                    // fill in the order item information
+                    fillOrderItemsInfo(orderItemList);
+                    // set orderId
+                    for (int i = 0, len = orderItemList.size(); i < len; i++) {
+                        OrderItem temp = orderItemList.get(i);
+                        temp.setOrderId(order.getId());
+                        orderItemMapper.addOrderItem(temp);
+                    }
                 }
                 return true;
             } catch (Exception e) {
@@ -152,23 +133,23 @@ public class OrderServiceImpl implements IOrderService {
                 orderItem.setProductName(product.getProductName());
             } else {
                 // Multiple order items
-                List<Integer> productIds = new ArrayList<Integer>();
+                Set<Integer> productIds = new HashSet<Integer>();
                 // get all product ids
                 for (int i = 0, len = orderItems.size(); i < len; i++) {
                     productIds.add(orderItems.get(i).getProductId());
                 }
                 // The product server is called remotely to query the product information
                 List<Product> products = productRemoteClient.getProductsByIds(productIds);
+                Map<Integer, Product> productMap = new HashMap<Integer, Product>();
+                for (int i = 0, len = orderItems.size(); i < len; i++) {
+                    Product product = products.get(i);
+                    productMap.put(product.getId(), product);
+                }
                 // set product information
                 for (int i = 0, len = orderItems.size(); i < len; i++) {
                     OrderItem orderItem = orderItems.get(i);
-                    for (int j = 0, plen = products.size(); j < plen; j++) {
-                        Product product = products.get(j);
-                        if (orderItem.getProductId() == product.getId()) {
-                            orderItem.setProductName(product.getProductName());
-                            break;
-                        }
-                    }
+                    Product product = productMap.get(orderItem.getProductId());
+                    orderItem.setProductName(product.getProductName());
                 }
             }
         }

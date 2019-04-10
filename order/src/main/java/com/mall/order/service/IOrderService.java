@@ -16,12 +16,12 @@ public interface IOrderService {
     Order getOrderById(int id) throws Exception;
 
     /**
-     * Query the order information by map
+     * Query the orders information by map
      *
      * @param queryMap query map
-     * @return order information
+     * @return orders information
      */
-    List<Order> queryOrderByMap(Map queryMap) throws Exception;
+    List<Order> queryOrders(Map queryMap) throws Exception;
 
     /**
      * create order

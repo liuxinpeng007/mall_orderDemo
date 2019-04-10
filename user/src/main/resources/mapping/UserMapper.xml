@@ -19,11 +19,11 @@
         where id = #{id}
     </select>
 
-    <select id="getUsersByIds" resultMap="userResultMap" parameterType="java.util.List">
+    <select id="getUsersByIds" resultMap="userResultMap" parameterType="java.util.Collection">
         select id,userName,password,trueName,phone,email,address,cteateDate
         from t_user
         where id in
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+        <foreach collection="collection" index="index" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>
     </select>

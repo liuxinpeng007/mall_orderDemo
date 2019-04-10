@@ -5,6 +5,7 @@ import com.mall.user.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -19,7 +20,7 @@ public class UserController {
     }
 
     @PostMapping("/user/querys")
-    public List<User> getUsersByIds(@RequestBody List<Integer> ids) {
+    public List<User> getUsersByIds(@RequestBody Collection<Integer> ids) {
         return userService.getUsersByIds(ids);
     }
 

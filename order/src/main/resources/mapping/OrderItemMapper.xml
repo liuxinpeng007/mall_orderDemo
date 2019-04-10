@@ -8,17 +8,18 @@
         <result column="productId" property="productId" />
         <result column="productNum"  property="productNum" />
         <result column="productPrice"  property="productPrice" />
+        <result column="productName"  property="productName" />
     </resultMap>
 
-    <select id="getOrderByOrderId" resultMap="orderResultMap" parameterType="Integer">
-        select id,orderId,productId,productNum,productPrice
+    <select id="getOrderItemsByOrderId" resultMap="orderResultMap" parameterType="Integer">
+        select id,orderId,productId,productNum,productPrice,productName
         from t_order_item
         where orderId = #{orderId}
     </select>
 
     <insert id="addOrderItem" parameterType="com.mall.order.entity.OrderItem" >
-        insert into t_order_item(orderId,productId,productNum,productPrice)
-        values(#{orderId},#{productId},#{productNum},#{productPrice})
+        insert into t_order_item(orderId,productId,productNum,productPrice,productName)
+        values(#{orderId},#{productId},#{productNum},#{productPrice},#{productName})
 
     </insert>
 </mapper>

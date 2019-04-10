@@ -5,6 +5,7 @@ import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -17,5 +18,5 @@ public interface ProductRemoteClient {
     Product getProductById(@PathVariable("id") int id);
 
     @GetMapping("/product/querys")
-    List<Product> getProductsByIds(List<Integer> ids);
+    List<Product>  getProductsByIds(Collection<Integer> ids);
 }

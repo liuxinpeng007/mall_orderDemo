@@ -4,6 +4,7 @@ package com.mall.product.mapper;
 import com.mall.product.entity.Product;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -18,5 +19,5 @@ public interface ProductMapper {
 
     Product getProductById(int id);
 
-    List<Product> getProductsByIds(List<Integer> ids);
+    List<Product> getProductsByIds(Collection<Integer> ids);
 }
