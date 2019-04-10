@@ -5,6 +5,9 @@ CREATE TABLE IF NOT EXISTS `t_order` (
   `orderDate` datetime DEFAULT NULL,
   `status` varchar(2) DEFAULT NULL,
   `amount` decimal(12,2) DEFAULT NULL,
+  `userName` varchar(25) NOT NULL,
+  `userPhone` varchar(20) DEFAULT NULL,
+  `userAddress` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -15,6 +18,7 @@ CREATE TABLE IF NOT EXISTS `t_order_item` (
   `productNum` int DEFAULT NULL,
   `orderId` int DEFAULT NULL,
   `productPrice` decimal(12,2) DEFAULT NULL,
+  `productName` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
