@@ -26,4 +26,4 @@ mybatis:
 #showSql
 logging:
   level:
-    com.lxpdemo.springboot.dao : debug
+    com.mall.product.mapper : debug

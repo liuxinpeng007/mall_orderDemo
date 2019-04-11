@@ -3,10 +3,7 @@ package com.mall.order.controller;
 import com.mall.order.entity.Order;
 import com.mall.order.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,10 +18,8 @@ import java.util.Map;
 @RestController
 public class OrderController {
 
-
     @Autowired
     private IOrderService orderService;
-
 
     /**
      * Query the order information by order ID
@@ -49,7 +44,7 @@ public class OrderController {
      * @return order information
      */
     @GetMapping("/order/query/user/{userId}")
-    public List<Order> getOrderByUserId(@PathVariable("userId") int userId) {
+    public List<Order> getOrdersByUserId(@PathVariable("userId") int userId) {
         try {
             Map<String, Object> queryMap = new HashMap<String, Object>();
             queryMap.put("userId", userId);
@@ -67,7 +62,7 @@ public class OrderController {
      * @return order information
      */
     @GetMapping("/order/query/user/{userId}/{status}")
-    public List<Order> getOrderByUserIdAndStatus(@PathVariable("userId") int userId,
+    public List<Order> getOrdersByUserIdAndStatus(@PathVariable("userId") int userId,
                                                  @PathVariable("status") int status) {
         try {
             Map<String, Object> queryMap = new HashMap<String, Object>();
@@ -86,7 +81,7 @@ public class OrderController {
      * @param order order information
      */
     @PostMapping("/order/add")
-    public boolean addOrder(Order order) {
+    public boolean addOrder(@RequestBody  Order order) {
         try {
             return orderService.addOrder(order);
         } catch (Exception e) {
@@ -95,5 +90,18 @@ public class OrderController {
         return false;
     }
 
-
+    /**
+     * Delete order
+     *
+     * @param id order ID
+     */
+    @DeleteMapping("/order/delete/{id}")
+    public boolean deleteOrder(@PathVariable("id") Integer id) {
+        try {
+            return orderService.deleteOrder(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

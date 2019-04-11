@@ -2,6 +2,7 @@ package com.mall.order.service.impl;
 
 import com.mall.order.entity.Order;
 import com.mall.order.entity.OrderItem;
+import com.mall.order.enums.OrderStatus;
 import com.mall.order.mapper.OrderItemMapper;
 import com.mall.order.mapper.OrderMapper;
 import com.mall.order.remote.product.ProductRemoteClient;
@@ -26,7 +27,6 @@ import java.util.*;
  */
 @Service("orderService")
 public class OrderServiceImpl implements IOrderService {
-
 
     @Autowired
     private OrderMapper orderMapper;
@@ -57,7 +57,6 @@ public class OrderServiceImpl implements IOrderService {
         }
         return null;
     }
-
 
     /**
      * Query the orders information by query map
@@ -91,9 +90,11 @@ public class OrderServiceImpl implements IOrderService {
         if (order != null) {
             // set order information
             order.setOrderDate(new Date());
-            order.setStatus("0");
+            order.setOrderStatus(OrderStatus.PENDING);
             // query user information
             User user = userRemoteClient.getUserById(order.getUserId());
+            if (user == null)
+                throw new Exception("Failed to query user information,Please check the user ID");
             order.setUserAddress(user.getAddress());
             order.setUserPhone(user.getPhone());
             order.setUserName(user.getUserName());
@@ -124,12 +125,15 @@ public class OrderServiceImpl implements IOrderService {
      *
      * @param orderItems order item list
      */
-    private void fillOrderItemsInfo(List<OrderItem> orderItems) {
+    private void fillOrderItemsInfo(List<OrderItem> orderItems) throws Exception {
         if (orderItems != null && orderItems.size() > 0) {
             // Just one order item
             if (orderItems.size() == 1) {
                 OrderItem orderItem = orderItems.get(0);
                 Product product = productRemoteClient.getProductById(orderItem.getProductId());
+                // Throws an exception to roll back the transaction
+                if (product == null)
+                    throw new Exception("Failed to query product information,Please check the product ID");
                 orderItem.setProductName(product.getProductName());
             } else {
                 // Multiple order items
@@ -140,6 +144,9 @@ public class OrderServiceImpl implements IOrderService {
                 }
                 // The product server is called remotely to query the product information
                 List<Product> products = productRemoteClient.getProductsByIds(productIds);
+                // Throws an exception to roll back the transaction
+                if (products == null)
+                    throw new Exception("Failed to query product information,Please check the product IDs");
                 Map<Integer, Product> productMap = new HashMap<Integer, Product>();
                 for (int i = 0, len = orderItems.size(); i < len; i++) {
                     Product product = products.get(i);
@@ -150,9 +157,30 @@ public class OrderServiceImpl implements IOrderService {
                     OrderItem orderItem = orderItems.get(i);
                     Product product = productMap.get(orderItem.getProductId());
                     orderItem.setProductName(product.getProductName());
+                    orderItem.setProductPrice(product.getPrice());
                 }
             }
         }
     }
 
+    /**
+     * Delete order
+     *
+     * @param id order ID
+     */
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
+    public boolean deleteOrder(Integer id) throws Exception {
+        if (id != null) {
+            try {
+                orderMapper.deleteOrder(id);
+                orderItemMapper.deleteOrderItemsByOrderId(id);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new Exception("Order deletion failed");
+            }
+            return true;
+        }
+        return false;
+    }
 }

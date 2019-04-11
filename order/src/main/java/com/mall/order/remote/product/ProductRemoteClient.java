@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Product remote client
+ * Product server remote client
  */
 @FeignClient(value = "productServer")
 public interface ProductRemoteClient {

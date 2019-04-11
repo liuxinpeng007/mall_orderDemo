@@ -12,9 +12,5 @@
         <module name="mall.user" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="mall.good" target="1.6" />
-      <module name="order" target="1.5" />
-    </bytecodeTargetLevel>
   </component>
 </project>

@@ -10,11 +10,10 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * User remote client
+ * User erver remote client
  */
 @FeignClient(value = "userServer")
 public interface UserRemoteClient {
-
 
     @GetMapping("/user/query/{id}")
     User getUserById(@PathVariable("id") int id);

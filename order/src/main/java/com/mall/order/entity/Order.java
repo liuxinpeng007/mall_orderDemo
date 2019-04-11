@@ -1,5 +1,7 @@
 package com.mall.order.entity;
 
+import com.mall.order.enums.OrderStatus;
+
 import java.util.Date;
 import java.util.List;
 
@@ -10,13 +12,12 @@ import java.util.List;
  * @data 2019/04/03
  */
 public class Order {
-
     private int id;
     private int userId;
     // create order
     private Date orderDate;
-    // status 0:pending payment, 1:paid, 2:cancel or delete the order
-    private String status;
+    // ENUM OrderStatus
+    private OrderStatus orderStatus;
     // order total price
     private float amount;
     private List<OrderItem> orderItems;
@@ -48,12 +49,12 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public String getStatus() {
-        return status;
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public float getAmount() {

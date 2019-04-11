@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS `t_order` (
   `id` int NOT NULL AUTO_INCREMENT,
   `userId` int DEFAULT NULL,
   `orderDate` datetime DEFAULT NULL,
-  `status` varchar(2) DEFAULT NULL,
+  `orderStatus` varchar(10) DEFAULT NULL,
   `amount` decimal(12,2) DEFAULT NULL,
   `userName` varchar(25) NOT NULL,
   `userPhone` varchar(20) DEFAULT NULL,

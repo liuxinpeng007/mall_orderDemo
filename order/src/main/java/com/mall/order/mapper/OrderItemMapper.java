@@ -12,4 +12,5 @@ public interface OrderItemMapper {
 
     void addOrderItem(OrderItem item);
 
+    void deleteOrderItemsByOrderId(Integer orderId);
 }

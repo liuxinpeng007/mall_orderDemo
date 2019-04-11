@@ -29,4 +29,11 @@ public interface IOrderService {
      * @param order order
      */
     boolean addOrder(Order order) throws Exception;
+
+    /**
+     * Delete order
+     *
+     * @param id order ID
+     */
+    boolean deleteOrder(Integer id) throws Exception;
 }

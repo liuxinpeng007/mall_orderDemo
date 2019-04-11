@@ -20,6 +20,9 @@
     <insert id="addOrderItem" parameterType="com.mall.order.entity.OrderItem" >
         insert into t_order_item(orderId,productId,productNum,productPrice,productName)
         values(#{orderId},#{productId},#{productNum},#{productPrice},#{productName})
-
     </insert>
+
+    <delete id="deleteOrderItemsByOrderId" parameterType="Integer" >
+        delete from t_order_item where orderId = #{orderId}
+    </delete>
 </mapper>

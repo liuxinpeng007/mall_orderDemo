@@ -15,4 +15,5 @@ public interface OrderMapper {
 
     int addOrder(Order order);
 
+    void deleteOrder(Integer id);
 }

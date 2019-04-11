@@ -6,7 +6,7 @@
         <result column="id" property="id"/>
         <result column="userId"  property="userId" />
         <result column="orderDate"  property="orderDate" />
-        <result column="status"  property="status" />
+        <result column="orderStatus"  property="orderStatus" />
         <result column="amount"  property="amount" />
         <result column="userName"  property="userName" />
         <result column="userPhone"  property="userPhone" />
@@ -14,7 +14,7 @@
     </resultMap>
 
     <select id="getOrderById" resultMap="orderResultMap" parameterType="Integer">
-        select id,userId,orderDate,status,amount,userName,userPhone,userAddress
+        select id,userId,orderDate,orderStatus,amount,userName,userPhone,userAddress
         from t_order
         where id = #{id}
     </select>
@@ -36,8 +36,12 @@
     </select>
 
     <insert id="addOrder" useGeneratedKeys="true" keyProperty="id" parameterType="com.mall.order.entity.Order">
-        insert into t_order (userId,orderDate,status,amount,userName,userPhone,userAddress)
-        values (#{userId},#{orderDate},#{status},#{amount},#{userName},#{userPhone},#{userAddress})
+        insert into t_order (userId,orderDate,orderStatus,amount,userName,userPhone,userAddress)
+        values (#{userId},#{orderDate},#{orderStatus},#{amount},#{userName},#{userPhone},#{userAddress})
     </insert>
+
+    <delete id="deleteOrder" parameterType="Integer" >
+        delete from t_order where id = #{id}
+    </delete>
 
 </mapper>

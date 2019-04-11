@@ -1,7 +1,6 @@
 package com.mall.user.entity;
 
 public class User {
-
     private int id;
     private String userName;
     private String password;
@@ -10,7 +9,6 @@ public class User {
     private String email;
     private String address;
     private String cteateDate;
-
 
     public int getId() {
         return id;
